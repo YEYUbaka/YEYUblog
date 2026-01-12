@@ -1,62 +1,90 @@
-[![Version](https://img.shields.io/github/package-json/v/dmego/home.github.io)](https://www.npmjs.com/package/dmego-home-page)
-[![Website](https://img.shields.io/website-up-down-green-red/http/i.dmego.cn.svg)](http://i.dmego.cn/)
-[![License](https://img.shields.io/github/license/dmego/home.github.io.svg)](/LICENSE)
-[![Say Thanks](https://img.shields.io/badge/Say-Thanks!-1EAEDB.svg)](https://saythanks.io/to/dmego)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/dmego/home.github.io)
+# YEYUblog
 
-### 个人主页
+我的个人主页 + Hugo 博客项目。
 
->这是我的个人主页
+**在线访问：[yeyubaka.top](https://yeyubaka.top)**
 
->衍生自 [Vno](https://github.com/onevcat/vno-jekyll) Jekyll 主题
+## 项目介绍
 
->页面部分加载效果借鉴于 [Mno](https://github.com/mcc108/mno) Ghost 主题
+这是一个融合了个人主页和博客系统的网站项目：
 
->借鉴了[北岛向南的小屋](https://javef.github.io/)的头像样式
+- **主页**：基于 [dmego/home.github.io](https://github.com/dmego/home.github.io) 二次开发，添加了个人定制内容
+- **博客**：使用 Hugo 静态网站生成器 + PaperMod 主题，自己用 Cursor 搭建
 
-### 效果图
+## 功能特性
 
->静态图
+### 主页
+- Bing 每日壁纸（通过 GitHub Action 自动更新）
+- 一言 API 随机句子
+- APlayer 音乐播放器
+- 响应式设计，支持移动端
 
-![主页JPG](https://unpkg.com/dmego-home-page@latest/assets/img/home.jpg)
+### 博客
+- Hugo 静态博客
+- PaperMod 主题
+- 文章分类、标签、归档
+- 自定义评论系统
 
->动态图
+## 技术栈
 
-![主页GIF](https://unpkg.com/dmego-home-page@latest/assets/img/home.gif)
+| 组件 | 技术 |
+|------|------|
+| 主页 | HTML + CSS + JavaScript |
+| 博客 | Hugo + PaperMod 主题 |
+| 服务器 | 阿里云 + Caddy |
+| 自动化 | GitHub Actions |
 
-### 注
+## 项目结构
 
-- 访问地址：[个人主页](http://i.dmego.cn/)
-- 使用了 [一言](http://hitokoto.cn/) 的 API 服务
-- ~~使用了 [Bing 壁纸 API](https://github.com/xCss/bing/) 服务~~
-- ~~使用了 [Yahoo Query Language (YQL)](https://developer.yahoo.com/yql/) 来解决获取 Bing 壁纸跨域问题~~
-- ~~原先 YQL 服务将被淘汰，现改用 [JsonBird](https://bird.ioliu.cn/)~~
-- 使用 `GitHub Action` 来获取 Bing 壁纸，使用 `JSONP` 获取 Bing 壁纸 URL 文件
+```
+YEYUblog/
+├── index.html              # 主页
+├── about.html              # 关于页面
+├── blog/                   # Hugo 博客
+│   ├── config.toml         # 博客配置
+│   ├── content/posts/      # 文章目录
+│   ├── themes/paper/       # PaperMod 主题
+│   └── layouts/            # 自定义布局
+├── assets/                 # 静态资源
+│   ├── css/
+│   ├── js/
+│   └── img/
+└── .github/workflows/      # GitHub Actions
+```
 
-### GitHub Action 补充说明
+## 本地开发
 
-- 利用 `Github Action` 提交代码需要一个 `GitHub API` 令牌, 可以在 [Create Tokens](https://github.com/settings/tokens) 这个地址，点击 `Generate new token` 按钮来创建
-  - `Expiration` 过期时间设置为 `No expiration`
-  - `Select scopes` 勾选 `repo`
-  - 点击 `Generate Token` 生成
-- 在仓库的 `Settings` ——>`Secrets` 功能栏中，点击 `New repository secrets` 按钮
-  -  在 `Name` 框中填写 `GH_TOKEN`
-  - 在 `Secrets` 栏中填写第一步生成的 `Token` 值
-- 详细配置步骤图可以参考《[GitHub Action 配置详细步骤](./ActionNotes.md)》文档
+### 环境要求
+- [Hugo Extended](https://gohugo.io/installation/) v0.110+
+- Node.js v18+（可选，用于评论服务）
 
-### 更新记录
-- 2022-06-10
-  - 发布 NPM 包，使用 UNPKG 作为资源文件的 CDN 
-- 2023-02-27
-  - 添加《GitHub Action 配置详细步骤》文档
-- 2023-04-12
-  - 移除 Jquery 依赖，使用原生 JS
-- 2023-08-28
-  - 将壁纸地址换成 cn.bing.com
-- 2025-09-11
-  - 添加公众号二维码、压缩图片
+### 运行主页
+```bash
+# 使用任意静态服务器，如：
+npx http-server -p 8080
+# 访问 http://localhost:8080
+```
 
-### Star History
+### 运行博客
+```bash
+cd blog
+hugo server -D
+# 访问 http://localhost:1313/blog/
+```
 
-[![Star History Chart](https://api.star-history.com/svg?repos=dmego/home.github.io&type=Date)](https://star-history.com/#dmego/home.github.io&Date)
+### 构建博客
+```bash
+cd blog
+hugo --minify
+```
 
+## 致谢
+
+- 主页模板：[dmego/home.github.io](https://github.com/dmego/home.github.io)
+- 博客主题：[PaperMod](https://github.com/adityatelange/hugo-PaperMod)
+- 一言 API：[hitokoto.cn](https://hitokoto.cn/)
+- 音乐播放器：[APlayer](https://aplayer.js.org/)
+
+## License
+
+MIT License

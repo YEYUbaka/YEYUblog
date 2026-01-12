@@ -38,3 +38,6 @@ archive/
 
 # Claude Code
 .claude/
+
+# PowerShell scripts
+*.ps1
