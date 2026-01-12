@@ -24,6 +24,7 @@
 - PaperMod 主题
 - 文章分类、标签、归档
 - 自定义评论系统
+- 心知天气组件
 
 ## 技术栈
 
@@ -60,7 +61,6 @@ YEYUblog/
 
 ### 运行主页
 ```bash
-# 使用任意静态服务器，如：
 npx http-server -p 8080
 # 访问 http://localhost:8080
 ```
@@ -76,6 +76,58 @@ hugo server -D
 ```bash
 cd blog
 hugo --minify
+```
+
+### 创建新文章
+```bash
+cd blog
+hugo new posts/2025-01-15-文章标题.md
+```
+
+## 配置说明
+
+### GitHub Action 配置（Bing 壁纸自动更新）
+
+1. 在 [GitHub Settings > Tokens](https://github.com/settings/tokens) 创建 Personal Access Token
+   - Expiration 选择 `No expiration`
+   - 勾选 `repo` 权限
+2. 在仓库 Settings > Secrets > Actions 中添加 `GH_TOKEN`，值为上一步生成的 Token
+
+### 心知天气配置
+
+1. 在 [心知天气](https://www.seniverse.com/) 注册并获取 API Key
+2. 编辑 `blog/static/js/weather.js`，修改配置：
+   ```javascript
+   const config = {
+       apiKey: '你的API_Key',
+       location: 'wuhan',  // 城市名
+       // ...
+   };
+   ```
+3. 在 `blog/config.toml` 中启用：
+   ```toml
+   [params.weather]
+     enable = true
+   ```
+
+### 文章 Front Matter 模板
+
+```yaml
+---
+title: "文章标题"
+date: 2025-01-15T10:00:00+08:00
+draft: false
+author: "YEYUbaka"
+description: "文章描述"
+tags:
+  - 标签1
+categories:
+  - 分类1
+cover:
+  image: "images/posts/cover.jpg"
+  alt: "封面描述"
+  relative: true
+---
 ```
 
 ## 致谢
