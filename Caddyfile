@@ -1,0 +1,51 @@
+# Caddy 配置文件
+# 网站：yeyubaka.top
+
+# HTTP 自动重定向到 HTTPS（Caddy 自动处理）
+yeyubaka.top, www.yeyubaka.top {
+    # 评论 API 反向代理（必须在其他路由之前）
+    handle /api/comments* {
+        reverse_proxy localhost:3001
+    }
+    
+    # 博客发布工具反向代理 - 使用 handle_path 去掉 /publisher 前缀
+    handle_path /publisher* {
+        reverse_proxy localhost:3002
+    }
+    
+    # 博客所有路径（包括页面和静态资源）- 使用 handle_path 自动去掉 /blog 前缀
+    handle_path /blog* {
+        root * C:/web/home/blog
+        file_server
+    }
+    
+    # 主页和其他所有路径
+    handle {
+        root * C:/web/home
+        file_server
+    }
+    
+    # 静态资源缓存
+    @static {
+        path *.jpg *.jpeg *.png *.gif *.ico *.css *.js *.woff *.woff2 *.ttf *.svg *.eot *.json
+    }
+    header @static {
+        Cache-Control "public, max-age=31536000, immutable"
+    }
+    
+    # 404 页面
+    handle_errors {
+        rewrite * /404.html
+        file_server
+    }
+    
+    # Gzip 压缩
+    encode gzip
+    
+    # 日志
+    log {
+        output file C:/Caddy/logs/access.log
+        format json
+    }
+}
+

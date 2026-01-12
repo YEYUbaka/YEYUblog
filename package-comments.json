@@ -1,0 +1,20 @@
+{
+  "name": "blog-comments-server",
+  "version": "1.0.0",
+  "description": "博客评论系统服务器",
+  "main": "blog-comments-server.js",
+  "scripts": {
+    "start": "node blog-comments-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "keywords": [
+    "blog",
+    "comments",
+    "server"
+  ],
+  "author": "YEYUbaka",
+  "license": "MIT"
+}
+

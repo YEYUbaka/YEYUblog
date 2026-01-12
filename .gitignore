@@ -1,0 +1,40 @@
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# phpMyAdmin
+irb-x/
+irb-x@
+irb-x*
+
+# Piwic
+analytics/
+analytics@
+analytics*
+
+# Let's Encrypt
+.well-known/
+.well-known@
+.well-known*
+
+# Hugo
+blog/public/
+blog/resources/
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# Archive (临时文件备份)
+archive/
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code
+.claude/

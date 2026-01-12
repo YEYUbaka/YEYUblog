@@ -1,0 +1,380 @@
+/* Custom overrides */
+
+/* ==== 增加主容器宽度，让正文有更宽的行宽 ==== */
+:root {
+    --main-width: 1200px;
+}
+
+/* ==== TOC pinned on the right ==== */
+.post-single {
+    position: relative;
+}
+
+.post-single .toc {
+    position: fixed;
+    top: 130px;
+    right: 40px;
+    width: 260px;
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+    border-radius: 16px;
+    background: var(--code-bg);
+    padding: 1rem 1.2rem;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    z-index: 50;
+}
+
+.post-single .toc summary {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.post-single .toc ul {
+    padding-left: 1rem;
+}
+
+.post-single .post-content {
+    margin-right: 320px;
+    margin-top: 16px !important;
+    margin-bottom: 30px;
+    max-width: none !important;
+    width: auto !important;
+    word-wrap: normal;
+    word-break: normal;
+}
+
+.post-single .post-content p,
+.post-single .post-content li,
+.post-single .post-content div {
+    max-width: none !important;
+    word-wrap: normal;
+    word-break: normal;
+    white-space: normal;
+    overflow-wrap: normal;
+}
+
+/* 确保文章容器有足够宽度 */
+.post-single article {
+    max-width: none;
+}
+
+.post-single .entry-content {
+    max-width: none !important;
+}
+
+/* ==== 减少封面图片和正文之间的间距 ==== */
+.post-single .entry-cover {
+    margin-bottom: 12px !important;
+}
+
+/* 如果 TOC 存在，也减少 TOC 和正文之间的间距 */
+.post-single .toc {
+    margin-bottom: 16px !important;
+}
+
+/* ==== Back-to-top button ==== */
+.back-to-top {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--entry);
+    color: var(--secondary);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 90;
+}
+
+.back-to-top.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(15px);
+}
+
+.back-to-top svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* ==== Weather widget (Seniverse) ==== */
+#tp-weather-widget {
+    margin: 12px 0 0 12px;
+}
+
+/* 让天气卡片更协调的蓝灰渐变 */
+#tp-weather-widget,
+#tp-weather-widget div {
+    background-image: linear-gradient(135deg, #4f72f8, #8fd4ff) !important;
+    background-color: #4f72f8 !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+}
+
+#tp-weather-widget div {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32) !important;
+}
+
+#tp-weather-widget span,
+#tp-weather-widget i,
+#tp-weather-widget strong {
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* 深色模式下稍微压低亮度，避免太刺眼 */
+[data-theme="dark"] #tp-weather-widget,
+[data-theme="dark"] #tp-weather-widget div {
+    background-image: linear-gradient(135deg, #272c3d, #5c6881) !important;
+    background-color: #272c3d !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-theme="dark"] #tp-weather-widget span,
+[data-theme="dark"] #tp-weather-widget i,
+[data-theme="dark"] #tp-weather-widget strong {
+    color: #f6f6f6 !important;
+}
+
+/* ==== 技术图标容器 ==== */
+.tech-icons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.tech-icons-container a {
+    display: inline-block;
+    line-height: 0;
+    transition: transform 0.2s ease;
+}
+
+.tech-icons-container a:hover {
+    transform: scale(1.1);
+}
+
+.tech-icons-container img {
+    display: block;
+    margin: 0;
+}
+
+/* ==== Responsive tweaks ==== */
+@media (max-width: 1100px) {
+    .post-single .toc {
+        position: static;
+        width: 100%;
+        max-height: none;
+        margin: 1.5rem 0;
+        box-shadow: none;
+    }
+
+    .post-single .post-content {
+        margin-right: 0;
+    }
+
+    .back-to-top {
+        right: 20px;
+        bottom: 20px;
+    }
+}
+
+/* ==== 归档页面 ==== */
+.archives-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.archives-page .page-header {
+  padding-bottom: 0;
+}
+
+.archives-page .page-description {
+  margin: 0.5rem 0 1rem;
+  color: var(--secondary);
+}
+
+.archives-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.archives-stat {
+  padding: 1rem;
+  border-radius: 18px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.archives-stat .stat-label {
+  font-size: 0.85rem;
+  color: var(--secondary);
+}
+
+.archives-stat .stat-value {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.archives-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 16px;
+  background: var(--code-bg);
+  align-items: center;
+}
+
+.archives-nav .nav-label {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.archives-nav .nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.archives-nav a {
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: var(--entry);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.archives-nav a:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.archives-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.archive-year {
+  padding: 1.5rem;
+  border-radius: 24px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 45px rgba(0, 0, 0, 0.08);
+}
+
+.archive-year-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 0.8rem;
+}
+
+.archive-year-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.archive-year-header .year-count {
+  font-size: 0.9rem;
+  color: var(--secondary);
+}
+
+.archive-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.archive-entry {
+  padding: 1rem;
+  border-radius: 18px;
+  background: var(--code-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border: 1px solid transparent;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.archive-entry:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.archive-entry-link {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.archive-entry > *:not(.archive-entry-link) {
+  position: relative;
+  z-index: 2;
+}
+
+.archive-entry-meta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--secondary);
+}
+
+.archive-entry-category {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(133, 76, 230, 0.15);
+  color: var(--primary);
+  font-size: 0.8rem;
+}
+
+.archive-entry-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.archive-entry-summary {
+  margin: 0;
+  color: var(--secondary);
+  line-height: 1.6;
+}
+
+.archives-empty {
+  padding: 2rem;
+  text-align: center;
+  border-radius: 18px;
+  background: var(--entry);
+  color: var(--secondary);
+}
+
+@media (max-width: 768px) {
+  .archive-year {
+    padding: 1.2rem;
+  }
+
+  .archive-entry {
+    padding: 0.85rem;
+  }
+}
+

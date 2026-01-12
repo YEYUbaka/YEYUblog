@@ -1,0 +1,26 @@
+{
+  "name": "blog-publisher",
+  "version": "1.0.0",
+  "description": "博客发布工具 - 用于上传和发布博客文章",
+  "main": "blog-publisher-server.js",
+  "scripts": {
+    "start": "node blog-publisher-server.js",
+    "dev": "nodemon blog-publisher-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "blog",
+    "publisher",
+    "hugo",
+    "markdown"
+  ],
+  "author": "YEYUbaka",
+  "license": "MIT"
+}
+

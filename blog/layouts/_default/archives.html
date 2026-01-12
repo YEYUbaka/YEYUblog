@@ -1,0 +1,88 @@
+{{ define "main" }}
+{{ $mainSections := site.Params.mainSections | default (slice "posts" "post") }}
+{{ $pages := where site.RegularPages "Type" "in" $mainSections }}
+{{ $pages = sort $pages "Date" "desc" }}
+{{ $yearGroups := $pages.GroupByDate "2006" }}
+{{ $scratch := newScratch }}
+{{ $scratch.Set "wordCount" 0 }}
+{{ range $pages }}
+  {{ $scratch.Add "wordCount" (default 0 .WordCount) }}
+{{ end }}
+<section class="archives-page">
+  <header class="page-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}
+    <p class="page-description">{{ . }}</p>
+    {{ end }}
+    {{ if gt (len $pages) 0 }}
+    <div class="archives-stats">
+      <div class="archives-stat">
+        <span class="stat-label">文章总数</span>
+        <span class="stat-value">{{ len $pages }}</span>
+      </div>
+      <div class="archives-stat">
+        <span class="stat-label">活跃年份</span>
+        <span class="stat-value">{{ len $yearGroups }}</span>
+      </div>
+      <div class="archives-stat">
+        <span class="stat-label">最近更新</span>
+        {{ with (index (first 1 $pages) 0) }}
+        <span class="stat-value">{{ .Date | time | dateFormat "2006-01-02" }}</span>
+        {{ end }}
+      </div>
+      <div class="archives-stat">
+        <span class="stat-label">累计字数</span>
+        <span class="stat-value">{{ lang.FormatNumber 0 ($scratch.Get "wordCount") }}</span>
+      </div>
+    </div>
+    {{ end }}
+  </header>
+  {{ if gt (len $pages) 0 }}
+  <nav class="archives-nav">
+    <span class="nav-label">快速跳转</span>
+    <div class="nav-list">
+      {{ range $year := $yearGroups }}
+      <a href="#year-{{ $year.Key }}">{{ $year.Key }}</a>
+      {{ end }}
+    </div>
+  </nav>
+  <section class="archives-timeline">
+    {{ range $year := $yearGroups }}
+    <div class="archive-year" id="year-{{ $year.Key }}">
+      <div class="archive-year-header">
+        <h2>{{ $year.Key }}</h2>
+        <span class="year-count">{{ len $year.Pages }} 篇</span>
+      </div>
+      <div class="archive-items">
+        {{ range $post := $year.Pages }}
+        <article class="archive-entry">
+          <a class="archive-entry-link" href="{{ $post.RelPermalink }}" aria-label="阅读 {{ $post.Title | plainify }}"></a>
+          <div class="archive-entry-meta">
+            <time datetime="{{ $post.Date | time | dateFormat "2006-01-02" }}">
+              {{ $post.Date | time | dateFormat "01 月 02 日" }}
+            </time>
+            {{ with $post.Params.categories }}
+            <span class="archive-entry-category">{{ index . 0 }}</span>
+            {{ end }}
+          </div>
+          <a class="archive-entry-title" href="{{ $post.RelPermalink }}">{{ $post.Title }}</a>
+          {{ if (and (not ($post.Param "hideSummary")) $post.Summary) }}
+          <p class="archive-entry-summary">
+            {{ $post.Summary | plainify | htmlUnescape | truncate 120 }}
+          </p>
+          {{ end }}
+        </article>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </section>
+  {{ else }}
+  <div class="archives-empty">
+    暂无文章，期待第一篇更新。
+  </div>
+  {{ end }}
+</section>
+{{ end }}
+

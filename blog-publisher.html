@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客发布工具 - YEYUbaka</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .form-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .tags-input,
+        .categories-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .tag-item,
+        .category-item {
+            display: inline-flex;
+            align-items: center;
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .tag-item .remove,
+        .category-item .remove {
+            margin-left: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .tag-item .remove:hover,
+        .category-item .remove:hover {
+            opacity: 0.8;
+        }
+
+        .file-upload {
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            background: #f8f9ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload:hover {
+            background: #f0f2ff;
+            border-color: #764ba2;
+        }
+
+        .file-upload.dragover {
+            background: #e8ebff;
+            border-color: #764ba2;
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        .file-list {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .file-item {
+            background: #e8ebff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-item .remove {
+            cursor: pointer;
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .preview-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .preview-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .actions {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+
+        .status-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 博客发布工具</h1>
+            <p>上传 Markdown 文件和图片，一键发布到博客</p>
+        </div>
+
+        <div class="content">
+            <form id="publishForm">
+                <!-- 基本信息 -->
+                <div class="form-section">
+                    <h2>📋 基本信息</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="title">文章标题 *</label>
+                            <input type="text" id="title" name="title" required placeholder="请输入文章标题">
+                        </div>
+                        <div class="form-group">
+                            <label for="author">作者</label>
+                            <input type="text" id="author" name="author" value="YEYUbaka" placeholder="作者名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">文章摘要 *</label>
+                        <textarea id="description" name="description" required placeholder="请输入文章摘要，用于 SEO 和列表展示（建议 150 字以内）"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">发布日期 *</label>
+                            <input type="datetime-local" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="draft">发布状态</label>
+                            <select id="draft" name="draft">
+                                <option value="false">立即发布</option>
+                                <option value="true">保存为草稿</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 分类和标签 -->
+                <div class="form-section">
+                    <h2>🏷️ 分类和标签</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="categoryInput">分类</label>
+                            <input type="text" id="categoryInput" placeholder="输入分类后按回车添加">
+                            <div class="categories-input" id="categoriesList"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tagInput">标签</label>
+                            <input type="text" id="tagInput" placeholder="输入标签后按回车添加">
+                            <div class="tags-input" id="tagsList"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 封面图片 -->
+                <div class="form-section">
+                    <h2>🖼️ 封面图片</h2>
+                    <div class="form-group">
+                        <label for="coverImage">封面图片（可选）</label>
+                        <div class="file-upload" id="coverUpload">
+                            <input type="file" id="coverImage" accept="image/*">
+                            <p>点击或拖拽上传封面图片</p>
+                            <p style="font-size: 12px; color: #666; margin-top: 5px;">支持 JPG、PNG、GIF 格式</p>
+                        </div>
+                        <div id="coverPreview" style="margin-top: 15px; display: none;">
+                            <img id="coverPreviewImg" style="max-width: 300px; border-radius: 8px; border: 2px solid #e0e0e0;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="coverAlt">图片描述</label>
+                        <input type="text" id="coverAlt" placeholder="封面图片的 alt 文本">
+                    </div>
+                </div>
+
+                <!-- Markdown 文件 -->
+                <div class="form-section">
+                    <h2>📄 Markdown 文件</h2>
+                    <div class="form-group">
+                        <label for="markdownFile">上传 Markdown 文件 *</label>
+                        <div class="file-upload" id="markdownUpload">
+                            <input type="file" id="markdownFile" accept=".md,.markdown" required>
+                            <p>点击或拖拽上传 Markdown 文件</p>
+                        </div>
+                        <div id="markdownFileName" style="margin-top: 10px; color: #666;"></div>
+                    </div>
+                </div>
+
+                <!-- 文章图片 -->
+                <div class="form-section">
+                    <h2>🖼️ 文章图片</h2>
+                    <div class="form-group">
+                        <label>上传文章中的图片（可选，支持多张）</label>
+                        <div class="file-upload" id="imagesUpload">
+                            <input type="file" id="articleImages" multiple accept="image/*">
+                            <p>点击或拖拽上传图片（可多选）</p>
+                        </div>
+                        <div class="file-list" id="imagesList"></div>
+                    </div>
+                </div>
+
+                <!-- 其他设置 -->
+                <div class="form-section">
+                    <h2>⚙️ 其他设置</h2>
+                    <div class="form-row">
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="featured" name="featured">
+                            <label for="featured">在首页推荐</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="showToc" name="showToc" checked>
+                            <label for="showToc">显示目录</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="tocOpen" name="tocOpen">
+                            <label for="tocOpen">目录默认展开</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 自动构建选项（服务器环境） -->
+                <div class="form-section" id="autoBuildSection" style="display: none;">
+                    <h2>⚙️ 自动构建和部署</h2>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="autoBuild" name="autoBuild">
+                        <label for="autoBuild">发布后自动构建博客并部署到网站（需要服务器环境）</label>
+                    </div>
+                    <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                        启用后，发布文章将自动执行 Hugo 构建并同步到网站目录，无需手动操作。
+                    </p>
+                </div>
+
+                <!-- 预览 -->
+                <div class="preview-section">
+                    <h2>👁️ 预览</h2>
+                    <div class="preview-content" id="previewContent">填写表单后，预览将显示在这里...</div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="actions">
+                    <button type="button" class="btn btn-secondary" onclick="updatePreview()">更新预览</button>
+                    <button type="button" class="btn btn-primary" onclick="downloadFiles()">下载文件</button>
+                    <button type="button" class="btn btn-success" onclick="publishPost()">一键发布</button>
+                </div>
+
+                <!-- 状态消息 -->
+                <div id="statusMessage" class="status-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let categories = [];
+        let tags = [];
+        let markdownContent = '';
+        let coverImageFile = null;
+        let articleImages = [];
+        let markdownFile = null;
+
+        // 检测环境并设置 API 地址
+        function getApiUrl() {
+            // 如果当前域名是 yeyubaka.top，使用服务器 API
+            if (window.location.hostname === 'yeyubaka.top' || window.location.hostname === 'www.yeyubaka.top') {
+                return '/publisher/api';
+            }
+            // 否则使用本地 API
+            return 'http://localhost:3000/api';
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化日期为今天
+            document.getElementById('date').value = new Date().toISOString().slice(0, 16);
+            
+            // 检测是否为服务器环境，显示自动构建选项
+            const isServer = window.location.hostname === 'yeyubaka.top' || window.location.hostname === 'www.yeyubaka.top';
+            if (isServer) {
+                document.getElementById('autoBuildSection').style.display = 'block';
+            }
+            
+            // 添加文件上传区域的点击事件
+            document.getElementById('coverUpload').addEventListener('click', function() {
+                document.getElementById('coverImage').click();
+            });
+            
+            document.getElementById('markdownUpload').addEventListener('click', function() {
+                document.getElementById('markdownFile').click();
+            });
+            
+            document.getElementById('imagesUpload').addEventListener('click', function() {
+                document.getElementById('articleImages').click();
+            });
+        });
+
+        // 分类输入
+        document.getElementById('categoryInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const value = this.value.trim();
+                if (value && !categories.includes(value)) {
+                    categories.push(value);
+                    updateCategoriesList();
+                    this.value = '';
+                }
+            }
+        });
+
+        // 标签输入
+        document.getElementById('tagInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const value = this.value.trim();
+                if (value && !tags.includes(value)) {
+                    tags.push(value);
+                    updateTagsList();
+                    this.value = '';
+                }
+            }
+        });
+
+        function updateCategoriesList() {
+            const list = document.getElementById('categoriesList');
+            list.innerHTML = categories.map(cat => `
+                <span class="category-item">
+                    ${cat}
+                    <span class="remove" onclick="removeCategory('${cat}')">×</span>
+                </span>
+            `).join('');
+        }
+
+        function updateTagsList() {
+            const list = document.getElementById('tagsList');
+            list.innerHTML = tags.map(tag => `
+                <span class="tag-item">
+                    ${tag}
+                    <span class="remove" onclick="removeTag('${tag}')">×</span>
+                </span>
+            `).join('');
+        }
+
+        function removeCategory(cat) {
+            categories = categories.filter(c => c !== cat);
+            updateCategoriesList();
+        }
+
+        function removeTag(tag) {
+            tags = tags.filter(t => t !== tag);
+            updateTagsList();
+        }
+
+        // Markdown 文件上传
+        document.getElementById('markdownFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                markdownFile = file;
+                document.getElementById('markdownFileName').textContent = `已选择: ${file.name}`;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    markdownContent = e.target.result;
+                    updatePreview();
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // 封面图片上传
+        document.getElementById('coverImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                coverImageFile = file;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('coverPreviewImg').src = e.target.result;
+                    document.getElementById('coverPreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 文章图片上传
+        document.getElementById('articleImages').addEventListener('change', function(e) {
+            Array.from(e.target.files).forEach(file => {
+                if (!articleImages.find(img => img.name === file.name)) {
+                    articleImages.push(file);
+                }
+            });
+            updateImagesList();
+        });
+
+        function updateImagesList() {
+            const list = document.getElementById('imagesList');
+            list.innerHTML = articleImages.map((img, index) => `
+                <div class="file-item">
+                    <span>${img.name}</span>
+                    <span class="remove" onclick="removeImage(${index})">×</span>
+                </div>
+            `).join('');
+        }
+
+        function removeImage(index) {
+            articleImages.splice(index, 1);
+            updateImagesList();
+        }
+
+        // 拖拽上传
+        ['coverUpload', 'markdownUpload', 'imagesUpload'].forEach(id => {
+            const element = document.getElementById(id);
+            element.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('dragover');
+            });
+            element.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.classList.remove('dragover');
+            });
+            element.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (id === 'markdownUpload') {
+                    const mdFile = Array.from(files).find(f => f.name.endsWith('.md') || f.name.endsWith('.markdown'));
+                    if (mdFile) {
+                        document.getElementById('markdownFile').files = new FileList([mdFile]);
+                        document.getElementById('markdownFile').dispatchEvent(new Event('change'));
+                    }
+                } else if (id === 'coverUpload') {
+                    const imgFile = Array.from(files).find(f => f.type.startsWith('image/'));
+                    if (imgFile) {
+                        document.getElementById('coverImage').files = new FileList([imgFile]);
+                        document.getElementById('coverImage').dispatchEvent(new Event('change'));
+                    }
+                } else if (id === 'imagesUpload') {
+                    const imgFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
+                    imgFiles.forEach(file => {
+                        if (!articleImages.find(img => img.name === file.name)) {
+                            articleImages.push(file);
+                        }
+                    });
+                    updateImagesList();
+                }
+            });
+        });
+
+        // 生成 Front Matter
+        function generateFrontMatter() {
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value || 'YEYUbaka';
+            const description = document.getElementById('description').value;
+            const date = new Date(document.getElementById('date').value);
+            const draft = document.getElementById('draft').value === 'true';
+            const featured = document.getElementById('featured').checked;
+            const showToc = document.getElementById('showToc').checked;
+            const tocOpen = document.getElementById('tocOpen').checked;
+            const coverAlt = document.getElementById('coverAlt').value;
+
+            const dateStr = date.toISOString().replace('Z', '+08:00');
+            const lastmodStr = new Date().toISOString().replace('Z', '+08:00');
+
+            let frontMatter = '---\n';
+            frontMatter += `title: "${title}"\n`;
+            frontMatter += `date: ${dateStr}\n`;
+            frontMatter += `lastmod: ${lastmodStr}\n`;
+            frontMatter += `draft: ${draft}\n`;
+            frontMatter += `author: "${author}"\n`;
+            frontMatter += `description: "${description}"\n`;
+
+            if (tags.length > 0) {
+                frontMatter += 'tags:\n';
+                tags.forEach(tag => {
+                    frontMatter += `  - ${tag}\n`;
+                });
+            }
+
+            if (categories.length > 0) {
+                frontMatter += 'categories:\n';
+                categories.forEach(cat => {
+                    frontMatter += `  - ${cat}\n`;
+                });
+            }
+
+            if (coverImageFile) {
+                const coverFileName = coverImageFile.name;
+                frontMatter += 'cover:\n';
+                frontMatter += `  image: "images/posts/${coverFileName}"\n`;
+                frontMatter += `  alt: "${coverAlt || coverFileName}"\n`;
+                frontMatter += `  caption: ""\n`;
+                frontMatter += `  relative: true\n`;
+            }
+
+            frontMatter += `featured: ${featured}\n`;
+            frontMatter += `showToc: ${showToc}\n`;
+            frontMatter += `tocOpen: ${tocOpen}\n`;
+            frontMatter += '---\n\n';
+
+            return frontMatter;
+        }
+
+        // 更新预览
+        function updatePreview() {
+            const frontMatter = generateFrontMatter();
+            const preview = frontMatter + markdownContent;
+            document.getElementById('previewContent').textContent = preview;
+        }
+
+        // 生成文件名
+        function generateFileName() {
+            const title = document.getElementById('title').value;
+            const date = new Date(document.getElementById('date').value);
+            const dateStr = date.toISOString().slice(0, 10);
+            const titleSlug = title
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim();
+            return `${dateStr}-${titleSlug}.md`;
+        }
+
+        // 下载文件
+        function downloadFiles() {
+            if (!markdownContent) {
+                showMessage('请先上传 Markdown 文件', 'error');
+                return;
+            }
+
+            const frontMatter = generateFrontMatter();
+            const fullContent = frontMatter + markdownContent;
+            const fileName = generateFileName();
+
+            // 下载 Markdown 文件
+            const blob = new Blob([fullContent], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            // 下载图片（如果有）
+            if (coverImageFile) {
+                downloadImage(coverImageFile, '封面图片');
+            }
+            articleImages.forEach((img, index) => {
+                downloadImage(img, `文章图片${index + 1}`);
+            });
+
+            showMessage('文件下载成功！请将文件复制到博客目录', 'success');
+        }
+
+        function downloadImage(file, label) {
+            const url = URL.createObjectURL(file);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.name;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // 一键发布（需要后端支持）
+        async function publishPost() {
+            if (!markdownContent) {
+                showMessage('请先上传 Markdown 文件', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('author', document.getElementById('author').value || 'YEYUbaka');
+            formData.append('description', document.getElementById('description').value);
+            formData.append('date', document.getElementById('date').value);
+            formData.append('draft', document.getElementById('draft').value);
+            formData.append('featured', document.getElementById('featured').checked);
+            formData.append('showToc', document.getElementById('showToc').checked);
+            formData.append('tocOpen', document.getElementById('tocOpen').checked);
+            formData.append('coverAlt', document.getElementById('coverAlt').value);
+            formData.append('categories', JSON.stringify(categories));
+            formData.append('tags', JSON.stringify(tags));
+            formData.append('markdown', markdownContent);
+            
+            if (coverImageFile) {
+                formData.append('coverImage', coverImageFile);
+            }
+            
+            articleImages.forEach(img => {
+                formData.append('articleImages', img);
+            });
+
+            // 添加自动构建选项
+            const autoBuild = document.getElementById('autoBuild').checked;
+            formData.append('autoBuild', autoBuild);
+
+            try {
+                const apiUrl = getApiUrl();
+                const response = await fetch(`${apiUrl}/publish`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    let message = result.message || '发布成功！';
+                    if (result.build) {
+                        if (result.build.built && result.build.synced) {
+                            message += ' 博客已自动构建并部署。';
+                        } else if (result.build.built) {
+                            message += ' 博客已构建，但同步失败。';
+                        }
+                    }
+                    showMessage(message, 'success');
+                } else {
+                    showMessage(result.error || '发布失败', 'error');
+                }
+            } catch (error) {
+                showMessage('无法连接到发布服务器。请使用"下载文件"功能，然后手动复制到博客目录。', 'error');
+                console.error('发布错误:', error);
+            }
+        }
+
+        function showMessage(message, type) {
+            const msgEl = document.getElementById('statusMessage');
+            msgEl.textContent = message;
+            msgEl.className = `status-message ${type}`;
+            setTimeout(() => {
+                msgEl.className = 'status-message';
+            }, 5000);
+        }
+
+        // 表单变化时自动更新预览
+        ['title', 'author', 'description', 'date', 'draft', 'featured', 'showToc', 'tocOpen', 'coverAlt'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('change', updatePreview);
+                el.addEventListener('input', updatePreview);
+            }
+        });
+    </script>
+</body>
+</html>
+

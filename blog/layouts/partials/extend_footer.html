@@ -1,0 +1,29 @@
+{{- /* Back to top button */ -}}
+<div id="back-to-top" class="back-to-top hidden" aria-label="回到顶部" role="button">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</div>
+<script>
+(function () {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+
+  const toggleBtn = () => {
+    if (window.scrollY > 320) {
+      btn.classList.remove('hidden');
+    } else {
+      btn.classList.add('hidden');
+    }
+  };
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  window.addEventListener('scroll', toggleBtn, { passive: true });
+  toggleBtn();
+})();
+</script>
+

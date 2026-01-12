@@ -1,0 +1,42 @@
+{{- /* 评论系统 */ -}}
+<div id="comments-section" class="comments-section">
+  <h2 class="comments-title">💬 评论</h2>
+  
+  {{- /* 评论表单 */ -}}
+  <div class="comment-form-container">
+    <form id="commentForm" class="comment-form">
+      <div class="form-group">
+        <label for="commentName">昵称 *</label>
+        <input type="text" id="commentName" name="name" required placeholder="请输入您的昵称" maxlength="50">
+      </div>
+      <div class="form-group">
+        <label for="commentContent">评论内容 *</label>
+        <textarea id="commentContent" name="content" required placeholder="请输入您的评论..." rows="4" maxlength="1000"></textarea>
+        <div class="char-count"><span id="charCount">0</span>/1000</div>
+      </div>
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="btn-text">发表评论</span>
+        <span class="btn-loading" style="display: none;">提交中...</span>
+      </button>
+    </form>
+  </div>
+
+  {{- /* 评论列表 */ -}}
+  <div id="commentsList" class="comments-list">
+    <div class="loading" style="display: none;">加载中...</div>
+    <div class="no-comments" style="display: none;">暂无评论，快来抢沙发吧~</div>
+  </div>
+</div>
+
+{{- /* 评论系统脚本和样式 */ -}}
+<link rel="stylesheet" href="{{ "css/comments.css" | relURL }}">
+<script>
+  // 评论系统配置
+  window.commentsConfig = {
+    apiUrl: '{{ site.Params.comments.apiUrl | default "http://localhost:3001" }}',
+    postId: '{{ .RelPermalink }}',
+    postTitle: '{{ .Title }}'
+  };
+</script>
+<script src="{{ "js/comments.js" | relURL }}"></script>
+

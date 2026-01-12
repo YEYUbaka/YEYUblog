@@ -1,0 +1,23 @@
+{{- /* Head custom content area start */ -}}
+{{- /* 心知天气官方插件脚本 */ -}}
+{{- if site.Params.weather.enable }}
+{{- /* 方式1：使用官方插件脚本（推荐） */ -}}
+{{- /* 从 https://www.seniverse.com/widget 生成代码后，取消下面的注释并替换 */ -}}
+{{- /* 
+<script>
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://widget.seniverse.com/weather-widget.js";
+    js.charset = "utf-8";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, "script", "seniverse-weather-widget"));
+</script>
+*/ -}}
+{{- /* 方式2：使用自定义脚本（如果使用 API 方式） */ -}}
+<script src="{{ "js/weather.js" | relURL }}"></script>
+{{- end }}
+{{- /* Head custom content area end */ -}}
+

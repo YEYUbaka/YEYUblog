@@ -1,0 +1,154 @@
+#baseURL = 'http://localhost:1313/blog/'  # 本地开发使用，部署时改为实际域名
+baseURL = 'https://yeyubaka.top/blog/'
+languageCode = 'zh-cn'
+title = '夜雨'
+theme = 'paper'
+hasCJKLanguage = true
+
+# 作者信息
+[author]
+  name = "YEYUbaka"
+  email = "2123912844@qq.com"
+
+# 菜单配置
+# 注意：由于 baseURL 已包含 /blog/，菜单 URL 不需要再加 /blog/ 前缀
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "首页"
+    url = "/"
+    weight = 10
+  
+  [[menu.main]]
+    identifier = "posts"
+    name = "文章"
+    url = "/posts/"
+    weight = 20
+  
+  [[menu.main]]
+    identifier = "categories"
+    name = "分类"
+    url = "/categories/"
+    weight = 30
+  
+  [[menu.main]]
+    identifier = "tags"
+    name = "标签"
+    url = "/tags/"
+    weight = 40
+  
+  [[menu.main]]
+    identifier = "archives"
+    name = "归档"
+    url = "/archives/"
+    weight = 50
+  
+  [[menu.main]]
+    identifier = "about"
+    name = "关于"
+    url = "/about/"
+    weight = 60
+  
+  [[menu.main]]
+    identifier = "friends"
+    name = "友链"
+    url = "/friends/"
+    weight = 70
+  
+  [[menu.main]]
+    identifier = "main-home"
+    name = "返回主站"
+    url = "http://yeyubaka.top/"  # 本地开发：返回网站根目录
+    weight = 100
+
+# 参数配置
+[params]
+  env = "production"
+  title = "您的博客标题"
+  description = "博客描述"
+  keywords = ["博客", "技术", "生活"]
+  author = "您的名字"
+  disableScrollToTop = true
+  
+  # 主题配置
+  [params.theme]
+    defaultTheme = "auto"  # auto, light, dark
+    disableThemeToggle = false
+    ShowReadingTime = true
+    ShowPostNavLinks = true
+    ShowBreadCrumbs = true
+    ShowCodeCopyButtons = true
+    ShowWordCount = true
+    ShowRssButtonInSectionTermList = true
+    UseHugoToc = true
+    disableSpecial1stPost = false
+    disableScrollToTop = false
+  
+  # 社交链接（Paper Mod 主题格式）
+  # 注意：如果某个链接不需要，可以注释掉或删除
+  [params.socialIcons]
+    # github = "https://github.com/YEYUbaka"
+    # email = "mailto:2123912844@qq.com"
+  
+  # 首页配置
+  [params.homeInfoParams]
+    Title = "欢迎来YEYUbaka的博客"
+    Content = "技术分享和生活随笔"
+  
+  # 友链配置
+  [params.friends]
+    enable = true
+  
+  # 天气组件配置（心知天气 API）
+  [params.weather]
+    enable = true  # 设置为 true 启用天气组件
+    # 注意：需要在 static/js/weather.js 中配置您的心知天气 API Key
+    # 注册地址：https://www.seniverse.com/
+    # API 文档：https://docs.seniverse.com/api/weather/now.html
+  
+  # SEO 配置
+  [params.seo]
+    image = ""
+    imageWidth = 1200
+    imageHeight = 630
+  
+  # 评论系统配置
+  [params.comments]
+    enable = true  # 是否启用评论系统
+    apiUrl = "https://yeyubaka.top"  # 评论服务器地址（通过 Caddy 反向代理）
+
+# 分类和标签
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+# 输出格式
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# Markdown 配置
+[markup]
+  [markup.highlight]
+    style = "github"
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    noClasses = false
+  
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  
+  [markup.tableOfContents]
+    enabled = true
+    startLevel = 2
+    endLevel = 6
+
+# 分页配置
+[pagination]
+  pageSize = 10
+
+# 构建配置
+[build]
+  writeStats = true
+

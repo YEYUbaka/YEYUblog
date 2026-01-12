@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dmego Home">
+    <meta name="keywords" content="YEYUbaka,Homepage">
+    <meta name="author" content="YEYUbaka">
+    <title>YEYUbaka Home</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/dmego-home-page@latest/assets/css/onlinewebfonts.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/dmego-home-page@latest/assets/css/vno.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/dmego-home-page@latest/assets/css/iconfont.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    <style>
+        /* 确保播放器浮在遮罩之上 */
+        #aplayer.aplayer,
+        .aplayer.aplayer-fixed {
+            position: fixed;
+            left: 20px;
+            right: 20px;
+            bottom: 110px;
+            z-index: 10000;
+        }
+
+        .aplayer.aplayer-fixed {
+            z-index: 10000;
+        }
+
+        .aplayer.aplayer-fixed .aplayer-body {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .aplayer.aplayer-fixed .aplayer-lrc {
+            bottom: 70px;
+            text-align: center;
+        }
+
+        .aplayer.aplayer-fixed .aplayer-lrc p {
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+            font-weight: 500;
+        }
+
+        .aplayer.aplayer-fixed .aplayer-lrc p.aplayer-lrc-current {
+            color: #ffd166;
+            font-weight: 600;
+        }
+
+        .remark {
+            position: fixed !important;
+            left: 50% !important;
+            right: auto !important;
+            bottom: 20px !important;
+            transform: translateX(-50%);
+            width: min(90%, 560px);
+            text-align: center;
+            z-index: 9600;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: normal !important;
+            font-size: 12px !important;
+            opacity: 1 !important;
+            padding: 0 !important;
+        }
+
+        .remark-line {
+            display: block;
+            margin: 0.2rem 0;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .remark .power a,
+        .remark .beian a,
+        .remark-line a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .remark .power {
+            display: block !important;
+            position: static !important;
+            letter-spacing: normal !important;
+            margin: 0.2rem 0 !important;
+            font-size: 12px !important;
+            line-height: 1.8 !important;
+        }
+
+        .remark .beian {
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            position: static !important;
+            letter-spacing: normal !important;
+            margin: 0.2rem 0 !important;
+            font-size: 12px !important;
+            line-height: 1.8 !important;
+            flex-wrap: wrap;
+        }
+
+        .remark .beian a {
+            letter-spacing: 0.08em;
+            color: #ffffff !important;
+            opacity: 1 !important;
+            font-weight: 600 !important;
+            text-shadow: none !important;
+        }
+
+        .remark .power a:hover,
+        .remark .beian a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link rel="apple-touch-icon" href="https://unpkg.com/dmego-home-page@latest/apple-touch-icon.png">
+    <link rel="icon" href="https://unpkg.com/dmego-home-page@latest/favicon.ico">
+</head>
+
+<body>
+    <span class="mobile btn-mobile-menu">
+        <i class="social iconfont icon-list btn-mobile-menu__icon"></i>
+        <i class="social iconfont icon-angleup btn-mobile-close__icon hidden"></i>
+    </span>
+    <header id="panel" class="panel-cover">
+        <div class="panel-main">
+            <div class="panel-main__inner panel-inverted">
+                <div class="panel-main__content">
+                    <div class="ih-item circle effect right_to_left">            
+                        <a href="#" title="" class="blog-button">
+                            <div class="img"><img src="./assets/img/logo2.png" alt="img" class="js-avatar iUp profilepic"></div>
+                            <div class="info iUp">
+                                <div class="info-back">
+                                    <h2> 
+                                        
+                                            Come On!
+                                        
+                                    </h2>
+                                    <p>
+                                        
+                                            2026 · 加油！
+                                        
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <h1 class="panel-cover__title panel-title iUp">
+                        <a href="#" title="YEYUbaka Home">YEYU</a>
+                    </h1>
+                    <p class="panel-cover__subtitle panel-subtitle iUp">Code Create Life</p>
+                    <hr class="panel-cover__divider iUp" />
+                    <p id="description" class="panel-cover__description iUp">如何得与凉风约, 不共尘沙一并来!
+                        <br/>
+                        <strong>-「中牟道中」</strong>
+                    </p>
+                    <div class="navigation-wrapper iUp">
+                        <div>
+                            <nav class="cover-navigation cover-navigation--primary">
+                                <ul class="navigation">
+                                    <li class="navigation__item">
+                                        <a href="/" class="blog-button">首页</a>
+                                    </li>
+                                    <li class="navigation__item">
+                                        <a href="http://yeyubaka.top/blog/" class="blog-button">博客</a>
+                                    </li>
+                                    <li class="navigation__item">
+                                        <a href="/resume.pdf" class="blog-button" target="_blank">简历</a>
+                                    </li>
+                                    <li class="navigation__item">
+                                        <a href="/about.html" class="blog-button">关于</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="iUp">
+                            <nav class="cover-navigation navigation--social">
+                                <ul class="navigation">
+                                    <li class="navigation__item">
+                                        <a href="https://github.com/YEYUbaka/" title="github" target="_blank">
+                                            <i class='social iconfont icon-github'></i>
+                                            <span class="label">github</span>
+                                        </a>
+                                    </li>
+                                    <li class="navigation__item">
+                                        <a href="http://www.cnblogs.com/yeyubaka/" title="cnblogs" target="_blank">
+                                            <i class='social iconfont icon-cnblogs'></i>
+                                            <span class="label">cnblogs</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="navigation__item">
+                                        <a href="https://www.zhihu.com/people/yeyubaka/" title="zhihu" target="_blank">
+                                            <i class='social iconfont icon-zhihu'></i>
+                                            <span class="label">zhihu</span>
+                                        </a>
+                                    </li>
+                                    <li class="navigation__item">
+                                        <!-- 加密的邮箱地址, 请自行修改, 或者改用下方的明文方式 -->
+                                        <!--<a href="javascript:decryptEmail('ZG1lYWdvQGdtYWlsLmNvbQ==');" title="email">-->
+                                        <a href="2123912844@qq.com" title="email">
+                                            <i class='social iconfont icon-email'></i>
+                                            <span class="label">email</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-cover--overlay cover-slate"></div>
+        </div>
+        <!-- <div class="beian iUp">
+            <a class="icp" href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank">XXX</a>
+            <a class="gwab" href="http://www.beian.gov.cn/portal/recordQuery" target="_blank">XXX</a>
+        </div> -->
+        <div class="remark">
+            <div class="remark-line power" style="display: flex !important; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
+                <a href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011502001842" target="_blank" style="display: inline-flex; align-items: center; gap: 4px;">
+                    <img src="./assets/img/beian.png" alt="公安备案" style="width: 14px; height: 14px;">
+                    鄂公网安备42011502001842号
+                </a>
+                <a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2025159185号-1</a>
+            </div>
+            <div class="remark-line power">Powered By 
+                <a href="https://github.com/features/actions" target="_blank"> GitHub Actions </a> And 
+                <a href="https://hitokoto.cn/" target="_blank"> Hitokoto </a> And
+                <a href="https://aplayer.top/" target="_blank"> Aplayer </a> And
+                <a href="https://www.aliyun.com/" target="_blank"> Aliyun </a>
+            </div>
+        </div>
+    </header>
+    <!-- WeChat Modal -->
+    <div id="wechatModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity 0.3s ease;" onclick="closeWeChatModal()">
+        <img src="./assets/img/wechat.png" alt="WeChat" style="max-width: 300px; max-height: 300px; border-radius: 10px;" onclick="event.stopPropagation()">
+    </div>
+    <div id="aplayer"
+        class="aplayer"
+        data-order="random"
+        data-id="3187536304"
+        data-server="netease"
+        data-type="playlist"
+        data-fixed="true"
+        data-volume="0.7">
+    </div>
+    <script type="text/javascript" src="https://unpkg.com/dmego-home-page@latest/assets/js/main.js"></script>
+    <script type="text/javascript" src="./assets/json/images.json?cb=getBingImages"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+</body>
+</html>
