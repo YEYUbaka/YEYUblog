@@ -83,6 +83,7 @@ hugo --minify
 - 主页模板：[dmego/home.github.io](https://github.com/dmego/home.github.io)
 - 博客主题：[PaperMod](https://github.com/adityatelange/hugo-PaperMod)
 - 一言 API：[hitokoto.cn](https://hitokoto.cn/)
+- 天气服务：[心知天气](https://www.seniverse.com/)
 - 音乐播放器：[APlayer](https://aplayer.js.org/)
 
 ## License
